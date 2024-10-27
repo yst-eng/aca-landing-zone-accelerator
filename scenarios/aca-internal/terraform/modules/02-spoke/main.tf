@@ -89,7 +89,7 @@ resource "azurerm_subnet_network_security_group_association" "jumpBoxSecurityGro
 module "peeringSpokeToHub" {
   source         = "../../../../shared/terraform/modules/networking/peering"
   localVnetName  = module.vnet.vnetName
-  remoteVnetId   = var.hubVnetId
+  remoteVnetId   = var.hubVnetId # todo update
   remoteVnetName = local.hubVnetName
   remoteRgName   = azurerm_resource_group.spokeResourceGroup.name
 }
@@ -102,22 +102,22 @@ module "peeringHubToSpoke" {
   remoteRgName   = local.hubVnetResourceGroup
 }
 
-module "vm" {
-  source                = "../../../../shared/terraform/modules/vms"
-  osType                = "Linux"
-  location              = var.location
-  tags                  = var.tags
-  nicName               = module.naming.resourceNames["vmJumpBoxNic"]
-  vmName                = module.naming.resourceNames["vmJumpBox"]
-  adminUsername         = var.vmAdminUsername
-  adminPassword         = var.vmAdminPassword
-  sshAuthorizedKeys     = var.vmLinuxSshAuthorizedKeys
-  authenticationType    = var.vmLinuxAuthenticationType
-  resourceGroupName     = azurerm_resource_group.spokeResourceGroup.name
-  size                  = var.vmSize
-  vnetResourceGroupName = azurerm_resource_group.spokeResourceGroup.name
-  subnetId              = data.azurerm_subnet.jumpboxSubnet[0].id
-}
+# module "vm" {
+#   source                = "../../../../shared/terraform/modules/vms"
+#   osType                = "Linux"
+#   location              = var.location
+#   tags                  = var.tags
+#   nicName               = module.naming.resourceNames["vmJumpBoxNic"]
+#   vmName                = module.naming.resourceNames["vmJumpBox"]
+#   adminUsername         = var.vmAdminUsername
+#   adminPassword         = var.vmAdminPassword
+#   sshAuthorizedKeys     = var.vmLinuxSshAuthorizedKeys
+#   authenticationType    = var.vmLinuxAuthenticationType
+#   resourceGroupName     = azurerm_resource_group.spokeResourceGroup.name
+#   size                  = var.vmSize
+#   vnetResourceGroupName = azurerm_resource_group.spokeResourceGroup.name
+#   subnetId              = data.azurerm_subnet.jumpboxSubnet[0].id
+# }
 
 module "logAnalyticsWorkspace" {
   source            = "../../../../shared/terraform/modules/monitoring/log-analytics"
@@ -134,10 +134,10 @@ module "diagnostics" {
     {
       type = "vnet-spoke"
       id   = module.vnet.vnetId
-    },
-    {
-      type = "vm-jumpbox"
-      id   = module.vm.vmId
+    # },
+    # {
+    #   type = "vm-jumpbox"
+    #   id   = module.vm.vmId
     }
   ]
 }

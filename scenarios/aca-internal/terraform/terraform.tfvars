@@ -25,7 +25,7 @@ vmJumpboxOSType          = "Linux"
 infraSubnetName          = "snet-infra"
 
 deployHelloWorldSample              = true
-clientIP                            = "<Your computer's IP address>"
+clientIP                            = "133.32.225.207/32" # y-ikura IP
 supportingResourceGroupName         = "supporting-services"
 aRecords                            = []
 containerRegistryPullRoleAssignment = "acrRoleAssignment"
