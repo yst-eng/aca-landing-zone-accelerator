@@ -18,6 +18,11 @@ This is the starting point for the instructions on deploying this reference impl
   [![Launch Azure Cloud Shell](https://learn.microsoft.com/azure/includes/media/cloud-shell-try-it/launchcloudshell.png)](https://shell.azure.com)
 - Latest [Terraform tools](https://developer.hashicorp.com/terraform/tutorials/azure-get-started/install-cli)
 - PowerShell 7.0, if you would like to use PowerShell to do your Azure Storage Account for Terraform Remote State 
+- 環境変数を設定
+```bash
+export ARM_SUBSCRIPTION_ID=<YOUR ARM SUBSCRIPTION ID>
+
+```
 
 ## Steps 
 

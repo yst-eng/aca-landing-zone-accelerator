@@ -56,17 +56,17 @@ module "firewall" {
   tags                               = var.tags
 }
 
-module "bastion" {
-  source                = "../../../../shared/terraform/modules/bastion"
-  vnetName              = module.vnet.vnetName
-  vnetResourceGroupName = azurerm_resource_group.hubResourceGroup.name
-  location              = var.location
-  bastionNsgName        = module.naming.resourceNames["bastionNsg"]
-  addressPrefixes       = var.bastionSubnetAddressPrefixes
-  bastionPipName        = module.naming.resourceNames["bastionPip"]
-  tags                  = var.tags
-  bastionHostName       = module.naming.resourceNames["bastion"]
-}
+# module "bastion" {
+#   source                = "../../../../shared/terraform/modules/bastion"
+#   vnetName              = module.vnet.vnetName
+#   vnetResourceGroupName = azurerm_resource_group.hubResourceGroup.name
+#   location              = var.location
+#   bastionNsgName        = module.naming.resourceNames["bastionNsg"]
+#   addressPrefixes       = var.bastionSubnetAddressPrefixes
+#   bastionPipName        = module.naming.resourceNames["bastionPip"]
+#   tags                  = var.tags
+#   bastionHostName       = module.naming.resourceNames["bastion"]
+# }
 
 module "logAnalyticsWorkspace" {
   source            = "../../../../shared/terraform/modules/monitoring/log-analytics"
@@ -87,10 +87,10 @@ module "diagnostics" {
     {
       type = "vnet-hub"
       id   = module.vnet.vnetId
-    },
-    {
-      type = "bastion"
-      id   = module.bastion.bastionHostId
+    # },
+    # {
+    #   type = "bastion"
+    #   id   = module.bastion.bastionHostId
     }
   ]
 }
